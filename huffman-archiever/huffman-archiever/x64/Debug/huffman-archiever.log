@@ -1,0 +1,5 @@
+﻿  huffman-archiever.cpp
+E:\CppProjects\huffman-archiever\huffman-archiever\huffman-archiever\huffman-archiever.cpp(56,54): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+E:\CppProjects\huffman-archiever\huffman-archiever\huffman-archiever\huffman-archiever.cpp(57,56): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+E:\CppProjects\huffman-archiever\huffman-archiever\huffman-archiever\huffman-archiever.cpp(65,25): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  huffman-archiever.vcxproj -> E:\CppProjects\huffman-archiever\huffman-archiever\x64\Debug\huffman-archiever.exe
