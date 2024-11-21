@@ -1,5 +1,9 @@
 ﻿  huffman-archiever.cpp
-E:\CppProjects\huffman-archiever\huffman-archiever\huffman-archiever\huffman-archiever.cpp(56,54): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
-E:\CppProjects\huffman-archiever\huffman-archiever\huffman-archiever\huffman-archiever.cpp(57,56): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
-E:\CppProjects\huffman-archiever\huffman-archiever\huffman-archiever\huffman-archiever.cpp(65,25): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+E:\CppProjects\huffman-archiever\huffman-archiever\huffman-archiever\huffman-archiever.cpp(68,45): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+E:\CppProjects\huffman-archiever\huffman-archiever\huffman-archiever\huffman-archiever.cpp(69,47): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+E:\CppProjects\huffman-archiever\huffman-archiever\huffman-archiever\huffman-archiever.cpp(77,19): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+E:\CppProjects\huffman-archiever\huffman-archiever\huffman-archiever\huffman-archiever.cpp(127,8): warning C4101: ch: неиспользованная локальная переменная
+E:\CppProjects\huffman-archiever\huffman-archiever\huffman-archiever\huffman-archiever.cpp(185,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+E:\CppProjects\huffman-archiever\huffman-archiever\huffman-archiever\huffman-archiever.cpp(197,25): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+E:\CppProjects\huffman-archiever\huffman-archiever\huffman-archiever\huffman-archiever.cpp(206,24): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
   huffman-archiever.vcxproj -> E:\CppProjects\huffman-archiever\huffman-archiever\x64\Debug\huffman-archiever.exe

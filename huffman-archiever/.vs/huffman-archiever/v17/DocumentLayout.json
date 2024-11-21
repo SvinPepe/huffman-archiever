@@ -7,14 +7,17 @@
       "RelativeMoniker": "D:0:0:{48940F8A-B92E-464D-AEFD-6F7F31667FBE}|huffman-archiever\\huffman-archiever.vcxproj|solutionrelative:huffman-archiever\\huffman-archiever.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Visual Studio\\VC\\Tools\\MSVC\\14.40.33807\\include\\vector||{3B902123-F8A7-4915-9F01-361F908088D0}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{48940F8A-B92E-464D-AEFD-6F7F31667FBE}|huffman-archiever\\huffman-archiever.vcxproj|E:\\CppProjects\\huffman-archiever\\huffman-archiever\\huffman-archiever\\input.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{48940F8A-B92E-464D-AEFD-6F7F31667FBE}|huffman-archiever\\huffman-archiever.vcxproj|solutionrelative:huffman-archiever\\input.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{48940F8A-B92E-464D-AEFD-6F7F31667FBE}|huffman-archiever\\huffman-archiever.vcxproj|E:\\VISUAL STUDIO\\VC\\TOOLS\\MSVC\\14.40.33807\\INCLUDE\\VECTOR||{3B902123-F8A7-4915-9F01-361F908088D0}|"
+      "AbsoluteMoniker": "D:0:0:{48940F8A-B92E-464D-AEFD-6F7F31667FBE}|huffman-archiever\\huffman-archiever.vcxproj|E:\\VISUAL STUDIO\\VC\\TOOLS\\MSVC\\14.40.33807\\INCLUDE\\XMEMORY||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{48940F8A-B92E-464D-AEFD-6F7F31667FBE}|huffman-archiever\\huffman-archiever.vcxproj|E:\\VISUAL STUDIO\\VC\\TOOLS\\MSVC\\14.40.33807\\INCLUDE\\TYPE_TRAITS||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Visual Studio\\VC\\Tools\\MSVC\\14.40.33807\\include\\type_traits||{3B902123-F8A7-4915-9F01-361F908088D0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -24,24 +27,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
+              "Title": "xmemory",
+              "DocumentMoniker": "E:\\Visual Studio\\VC\\Tools\\MSVC\\14.40.33807\\include\\xmemory",
+              "RelativeDocumentMoniker": "..\\..\\..\\Visual Studio\\VC\\Tools\\MSVC\\14.40.33807\\include\\xmemory",
+              "ToolTip": "E:\\Visual Studio\\VC\\Tools\\MSVC\\14.40.33807\\include\\xmemory",
+              "RelativeToolTip": "..\\..\\..\\Visual Studio\\VC\\Tools\\MSVC\\14.40.33807\\include\\xmemory",
+              "ViewState": "AQIAAKECAAAAAAAAAAAIwLsCAABRAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-11-21T13:17:43.966Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "vector",
               "DocumentMoniker": "E:\\Visual Studio\\VC\\Tools\\MSVC\\14.40.33807\\include\\vector",
               "RelativeDocumentMoniker": "..\\..\\..\\Visual Studio\\VC\\Tools\\MSVC\\14.40.33807\\include\\vector",
               "ToolTip": "E:\\Visual Studio\\VC\\Tools\\MSVC\\14.40.33807\\include\\vector",
               "RelativeToolTip": "..\\..\\..\\Visual Studio\\VC\\Tools\\MSVC\\14.40.33807\\include\\vector",
-              "ViewState": "AQIAAH0HAAAAAAAAAAAowI8HAAAAAAAA",
+              "ViewState": "AQIAAE4HAAAAAAAAAAAowGAHAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2024-11-18T14:30:31.124Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "type_traits",
               "DocumentMoniker": "E:\\Visual Studio\\VC\\Tools\\MSVC\\14.40.33807\\include\\type_traits",
               "RelativeDocumentMoniker": "..\\..\\..\\Visual Studio\\VC\\Tools\\MSVC\\14.40.33807\\include\\type_traits",
@@ -49,18 +65,17 @@
               "RelativeToolTip": "..\\..\\..\\Visual Studio\\VC\\Tools\\MSVC\\14.40.33807\\include\\type_traits",
               "ViewState": "AQIAAFkJAAAAAAAAAAAIwGMJAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-11-18T14:24:20.513Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-18T14:24:20.513Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "input.txt",
               "DocumentMoniker": "E:\\CppProjects\\huffman-archiever\\huffman-archiever\\huffman-archiever\\input.txt",
               "RelativeDocumentMoniker": "huffman-archiever\\input.txt",
               "ToolTip": "E:\\CppProjects\\huffman-archiever\\huffman-archiever\\huffman-archiever\\input.txt",
               "RelativeToolTip": "huffman-archiever\\input.txt",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAABkAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
               "WhenOpened": "2024-11-18T13:54:50.962Z",
               "EditorCaption": ""
@@ -73,7 +88,7 @@
               "RelativeDocumentMoniker": "huffman-archiever\\huffman-archiever.cpp",
               "ToolTip": "E:\\CppProjects\\huffman-archiever\\huffman-archiever\\huffman-archiever\\huffman-archiever.cpp",
               "RelativeToolTip": "huffman-archiever\\huffman-archiever.cpp",
-              "ViewState": "AQIAAFcAAAAAAAAAAAAAAHcAAAAJAAAA",
+              "ViewState": "AQIAAIQAAAAAAAAAAAAowJ8AAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-18T13:54:24.354Z",
               "EditorCaption": ""
