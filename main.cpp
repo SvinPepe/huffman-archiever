@@ -25,22 +25,24 @@ class Archiever {
     vector<Vertex> tree;
     vector<vector<unsigned char>> codes;
     map<vector<unsigned char>, unsigned char> char_by_code;
-    int freq[256];
-    vector<unsigned char> input_buf;
+    int freq[256]{};
+
 
     void init_tree(const bool isFreqFilled) {
         if (!isFreqFilled) {
             unsigned char ch;
             fill_n(freq, 256, 0);
-
             while (fread(&ch, sizeof ch, 1, input)) {
-
                 freq[ch]++;
-                input_buf.push_back(ch);
+                //cout << int(ch) << " ";
             }
-
         }
-
+        for (int i = 0; i < 256; i++) {
+            if (freq[i]){
+                //cout << i << " " << freq[i] << "\n";
+            }
+        }
+        //cout << "NEXT\n";
         for (auto i : freq) {
             forest.push(Tree{ i, static_cast<short>(forest.size()) });
             tree.push_back({ DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE });
@@ -57,7 +59,8 @@ class Archiever {
 
     void write_freq() {
         unsigned char flag = 0;
-        unsigned char cnt = 0;
+        short cnt = 0;
+
         for (int i = 0; i < 256; i++) {
             if (freq[i] > UINT16_MAX) {
                 flag = 1;
@@ -66,7 +69,7 @@ class Archiever {
                 cnt++;
             }
         }
-
+        //cout << int(flag) << " " << int(cnt) << "\n";
         fwrite(&flag, sizeof flag, 1, output);
         fwrite(&cnt, sizeof cnt, 1, output);
         if (flag) {
@@ -92,11 +95,11 @@ class Archiever {
     }
     void read_freq() {
 
-        unsigned char flag, cnt;
+        unsigned char flag; short cnt;
         fread(&flag, sizeof flag, 1, input);
         fread(&cnt, sizeof cnt, 1, input);
         fill_n(freq, 256, 0);
-
+        //cout << int(flag) << " " << int(cnt) << "\n";
         if (flag) {
             for (int i = 0; i < cnt; i++) {
                 unsigned char symbol;
@@ -123,7 +126,6 @@ class Archiever {
             tree.push_back({ main_min.root, second_min.root, DEFAULT_VALUE });
             tree[main_min.root].parent = tree.size() - 1;
             tree[second_min.root].parent = tree.size() - 1;
-
             forest.push(Tree{ main_min.weight + second_min.weight, short(tree.size() - 1) });
         }
     }
@@ -158,16 +160,6 @@ class Archiever {
         init_codes();
 
     }
-    long getFileSize(FILE *file) {
-        if (file == nullptr) return -1;
-
-        long currentPosition = ftell(file);
-        fseek(file, 0, SEEK_END);
-        long fileSize = ftell(file);
-        fseek(file, currentPosition, SEEK_SET);
-
-        return fileSize;
-    }
 
     void print_tree() {
         cout << "FOREST:\n";
@@ -189,17 +181,20 @@ public:
 
         tree.clear();
         codes.clear();
-        input_buf.clear();
+
         while (!forest.empty()) forest.pop();
-        unsigned char buf = 0;
-        unsigned char buf_size = 0;
+
         init(false);
         write_freq();
         vector<unsigned char> output_chars;
+        unsigned char buf = 0;
+        unsigned char buf_size = 0;
+        unsigned char symbol;
+        fclose(input);
+        input = fopen(input_filename, "rb");
 
-
-        for (auto i : input_buf)  {
-            for (auto bit : codes[i]) {
+        while (fread(&symbol, sizeof symbol, 1, input)) {
+            for (auto bit : codes[symbol]) {
                 buf_size++;
                 buf = (buf << 1) + bit;
                 if (buf_size == CHUNK_SIZE) {
@@ -215,8 +210,6 @@ public:
             fwrite(&i, sizeof i, 1, output);
         }
         fwrite(&buf, sizeof buf, 1, output);
-
-
         fclose(input);
         fclose(output);
     }
@@ -228,21 +221,13 @@ public:
 
         tree.clear();
         codes.clear();
-        input_buf.clear();
+
         while (!forest.empty()) forest.pop();
 
         read_freq();
-        init(true);
-        for (int i = 0; i < 256; i++) {
-            if (freq[i]) {
-                cout << i << " ";
-                for (auto j: codes[i]) {
-                    cout << int(j);
-                }
-                cout << '\n';
-            }
 
-        }
+        init(true);
+
         unsigned char last_byte_size;
         fread(&last_byte_size, sizeof last_byte_size, 1, input);
 
@@ -278,19 +263,27 @@ public:
         fclose(output);
     }
 };
-int main() {
-    Archiever archiever;
-    archiever.compress_file();
-    archiever.decompress_file("output.txt", "decompressed.txt");
-}
 
-
-//  int main(int argc, char* argv[]) {
-//      Archiever archiever;
-//      if (!strcmp("encode", argv[1])) {
-//          archiever.compress_file(argv[2], argv[3]);
-//      } else {
-//          archiever.decompress_file(argv[2], argv[3]);
-//      }
-//      return 0;
+// int main() {
+//     Archiever archiever;
+//     // auto file = fopen("calmer.txt", "wb");
+//     // for (int i = 0; i < 256; i++) {
+//     //     unsigned char symbol = i;
+//     //     fwrite(&symbol, sizeof symbol, 1, file);
+//     // }
+//     // fclose(file);
+//     archiever.compress_file("input.png", "output.txt");
+//     archiever.decompress_file("output.txt",  "output.png");
+//     return 0;
 // }
+
+int32_t main(int argc, char* argv[]) {
+    Archiever archiever;
+    if (!strcmp("encode", argv[1])) {
+        archiever.compress_file(argv[3], argv[2]);
+    } else {
+        archiever.decompress_file(argv[2], argv[3]);
+    }
+    return 0;
+}
+//https://sch9.ru/gate/benchmarker/results_v2/03d4bc8a-1f17-441a-9669-aa975987913c.txt
