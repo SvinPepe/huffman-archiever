@@ -4,7 +4,7 @@ typedef long long ll;
 
 class Archiever {
     const short DEFAULT_VALUE = -1;
-    const int CHUNK_SIZE = 8;
+    static constexpr int CHUNK_SIZE = 8;
     FILE*input = nullptr, *output = nullptr;
 
     struct Tree {
@@ -24,9 +24,7 @@ class Archiever {
     priority_queue<Tree, vector<Tree>, Tree> forest;
     vector<Vertex> tree;
     vector<vector<unsigned char>> codes;
-    map<vector<unsigned char>, unsigned char> char_by_code;
     int freq[256]{};
-
 
     void init_tree(const bool isFreqFilled) {
         if (!isFreqFilled) {
@@ -34,12 +32,6 @@ class Archiever {
             fill_n(freq, 256, 0);
             while (fread(&ch, sizeof ch, 1, input)) {
                 freq[ch]++;
-                //cout << int(ch) << " ";
-            }
-        }
-        for (int i = 0; i < 256; i++) {
-            if (freq[i]){
-                //cout << i << " " << freq[i] << "\n";
             }
         }
         //cout << "NEXT\n";
@@ -152,13 +144,9 @@ class Archiever {
         codes[vertex] = calmer;
     }
     void init(const bool isFreqFilled) {
-
         init_tree(isFreqFilled);
-
         build_tree();
-
         init_codes();
-
     }
 
     void print_tree() {
@@ -181,14 +169,13 @@ public:
 
         tree.clear();
         codes.clear();
-
         while (!forest.empty()) forest.pop();
 
         init(false);
         write_freq();
-        vector<unsigned char> output_chars;
-        unsigned char buf = 0;
-        unsigned char buf_size = 0;
+        vector<bitset<CHUNK_SIZE>> output_chars;
+        bitset<CHUNK_SIZE> buf = 0;
+        int buf_size = 0;
         unsigned char symbol;
         fclose(input);
         input = fopen(input_filename, "rb");
@@ -196,7 +183,8 @@ public:
         while (fread(&symbol, sizeof symbol, 1, input)) {
             for (auto bit : codes[symbol]) {
                 buf_size++;
-                buf = (buf << 1) + bit;
+                buf <<= 1;
+                buf |= bit;
                 if (buf_size == CHUNK_SIZE) {
                     output_chars.push_back(buf);
                     buf = 0;
@@ -206,16 +194,13 @@ public:
         }
 
         fwrite(&buf_size, sizeof buf_size, 1, output);
-        for (auto i : output_chars) {
-            fwrite(&i, sizeof i, 1, output);
-        }
+        fwrite(&output_chars[0], sizeof output_chars[0], output_chars.size(), output);
         fwrite(&buf, sizeof buf, 1, output);
         fclose(input);
         fclose(output);
     }
 
     void decompress_file(const char* input_filename = "input.txt", const char* output_filename = "output.txt") {
-        unsigned char ch;
         input = fopen(input_filename, "rb");
         output = fopen(output_filename, "wb");
 
@@ -228,30 +213,29 @@ public:
 
         init(true);
 
-        unsigned char last_byte_size;
+        int last_byte_size;
         fread(&last_byte_size, sizeof last_byte_size, 1, input);
 
 
         auto pos = tree.size() - 1;
-        unsigned char buf_ch;
+        bitset<CHUNK_SIZE> buf_ch;
         auto state = fread(&buf_ch, sizeof buf_ch, 1, input);
         for (;;) {
-            ch = buf_ch;
+            auto ch = buf_ch;
             state = fread(&buf_ch, sizeof buf_ch, 1, input);
             if (!state) {
                 for (int i = last_byte_size - 1; i >= 0; i--) {
-                    pos = update_tree_position((ch >> i) & 1, pos);
+                    pos = update_tree_position(ch[i], pos);
                     if (pos < (tree.size() + 1) / 2) {
                         unsigned char symbol = pos;
                         fwrite(&symbol, sizeof symbol, 1, output);
-
                         pos = tree.size() - 1;
                     }
                 }
                 break;
             }
             for (int i = CHUNK_SIZE - 1; i >= 0; i--) {
-                pos = update_tree_position((ch >> i) & 1, pos);
+                pos = update_tree_position(ch[i], pos);
                 if (pos < (tree.size() + 1) / 2) {
                     unsigned char symbol = pos;
                     fwrite(&symbol, sizeof symbol, 1, output);
@@ -266,14 +250,12 @@ public:
 
 // int main() {
 //     Archiever archiever;
-//     // auto file = fopen("calmer.txt", "wb");
-//     // for (int i = 0; i < 256; i++) {
-//     //     unsigned char symbol = i;
-//     //     fwrite(&symbol, sizeof symbol, 1, file);
-//     // }
-//     // fclose(file);
-//     archiever.compress_file("input.png", "output.txt");
-//     archiever.decompress_file("output.txt",  "output.png");
+//     // vector<bitset<8>> v = {1,2,3,4,5};
+//     // auto output = fopen("output.txt", "wb");
+//     // fwrite(&v[0], sizeof v[0], v.size(), output);
+//
+//     archiever.compress_file("input.txt", "output.txt");
+//     archiever.decompress_file("output.txt",  "decompressed.txt");
 //     return 0;
 // }
 
