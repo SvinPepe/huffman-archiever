@@ -24,6 +24,7 @@ class Archiever {
     priority_queue<Tree, vector<Tree>, Tree> forest;
     vector<Vertex> tree;
     vector<vector<unsigned char>> codes;
+    vector<unsigned char> input_chars;
     int freq[256]{};
 
     void init_tree(const bool isFreqFilled) {
@@ -32,6 +33,7 @@ class Archiever {
             fill_n(freq, 256, 0);
             while (fread(&ch, sizeof ch, 1, input)) {
                 freq[ch]++;
+                input_chars.push_back(ch);
             }
         }
         //cout << "NEXT\n";
@@ -173,14 +175,12 @@ public:
 
         init(false);
         write_freq();
-        vector<bitset<CHUNK_SIZE>> output_chars;
-        bitset<CHUNK_SIZE> buf = 0;
-        int buf_size = 0;
+        vector<unsigned char > output_chars;
+        unsigned char  buf = 0;
+        unsigned char  buf_size = 0;
         unsigned char symbol;
-        fclose(input);
-        input = fopen(input_filename, "rb");
 
-        while (fread(&symbol, sizeof symbol, 1, input)) {
+        for (auto symbol : input_chars) {
             for (auto bit : codes[symbol]) {
                 buf_size++;
                 buf <<= 1;
@@ -208,24 +208,21 @@ public:
         codes.clear();
 
         while (!forest.empty()) forest.pop();
-
         read_freq();
-
         init(true);
 
-        int last_byte_size;
+        unsigned char  last_byte_size;
         fread(&last_byte_size, sizeof last_byte_size, 1, input);
 
-
         auto pos = tree.size() - 1;
-        bitset<CHUNK_SIZE> buf_ch;
+        unsigned char buf_ch;
         auto state = fread(&buf_ch, sizeof buf_ch, 1, input);
         for (;;) {
             auto ch = buf_ch;
             state = fread(&buf_ch, sizeof buf_ch, 1, input);
             if (!state) {
                 for (int i = last_byte_size - 1; i >= 0; i--) {
-                    pos = update_tree_position(ch[i], pos);
+                    pos = update_tree_position((ch >> i) & 1, pos);
                     if (pos < (tree.size() + 1) / 2) {
                         unsigned char symbol = pos;
                         fwrite(&symbol, sizeof symbol, 1, output);
@@ -235,7 +232,7 @@ public:
                 break;
             }
             for (int i = CHUNK_SIZE - 1; i >= 0; i--) {
-                pos = update_tree_position(ch[i], pos);
+                pos = update_tree_position((ch >> i) & 1, pos);
                 if (pos < (tree.size() + 1) / 2) {
                     unsigned char symbol = pos;
                     fwrite(&symbol, sizeof symbol, 1, output);
