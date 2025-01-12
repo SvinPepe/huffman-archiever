@@ -9,11 +9,14 @@ void Archiever::write_freq() {
     short cnt = 0;
 
     for (unsigned int i: freq) {
-        if (i > UINT16_MAX and flag < 1) {
+        if (i > UINT8_MAX and flag < 1) {
             flag = 1;
         }
-        if (i > UINT32_MAX and flag < 2) {
+        if (i > UINT16_MAX and flag < 2) {
             flag = 2;
+        }
+        if (i > UINT32_MAX and flag < 3) {
+            flag = 3;
         }
         if (i) {
             cnt++;
@@ -29,12 +32,22 @@ void Archiever::write_freq() {
                 if (freq[i]) {
                     unsigned char symbol = i;
                     fwrite(&symbol, sizeof symbol, 1, output);
-                    unsigned short tmp = freq[i];
+                    unsigned char tmp = freq[i];
                     fwrite(&tmp, sizeof tmp, 1, output);
                 }
             }
         break;
         case 1:
+            for (int i = 0; i < 256; i++) {
+                if (freq[i]) {
+                    unsigned char symbol = i;
+                    fwrite(&symbol, sizeof symbol, 1, output);
+                    unsigned short tmp = freq[i];
+                    fwrite(&tmp, sizeof tmp, 1, output);
+                }
+            }
+        break;
+        case 2:
             for (int i = 0; i < 256; i++) {
                 if (freq[i]) {
                     unsigned char symbol = i;
@@ -74,13 +87,22 @@ void Archiever::init_freq(bool isCompressing) {
             case 0:
                 for (int i = 0; i < cnt; i++) {
                     unsigned char symbol;
+                    unsigned char freq_buf;
+                    fread(&symbol, sizeof symbol, 1, input);
+                    fread(&freq_buf, sizeof freq_buf, 1, input);
+                    freq[symbol] = freq_buf;
+                }
+            break;
+            case 1:
+                for (int i = 0; i < cnt; i++) {
+                    unsigned char symbol;
                     unsigned short freq_buf;
                     fread(&symbol, sizeof symbol, 1, input);
                     fread(&freq_buf, sizeof freq_buf, 1, input);
                     freq[symbol] = freq_buf;
                 }
                 break;
-            case 1:
+            case 2:
                 for (int i = 0; i < cnt; i++) {
                     unsigned char symbol;
                     unsigned int freq_buf;
@@ -161,11 +183,10 @@ void Archiever::compress_file(const char *input_filename, const char *output_fil
     unsigned char buf = 0;
     unsigned char buf_size = 0;
 
-    for (auto symbol: input_chars) {
-        for (auto bit: codes[symbol]) {
+    for (const auto &symbol: input_chars) {
+        for (const auto &bit: codes[symbol]) {
             buf_size++;
-            buf <<= 1;
-            buf |= bit;
+            buf = buf << 1 | bit;
             if (buf_size == CHUNK_SIZE) {
                 output_chars.push_back(buf);
                 buf = 0;

@@ -33,7 +33,7 @@ class Archiever {
     void init_freq(bool isCompressing);
     void build_tree();
     void init_tree();
-    void dfs(int vertex, std::vector<unsigned char> &calmer);
+    void dfs(int vertex, std::vector<unsigned char> &code_buffer);
     void init(bool isCompressing);
 
 public:
