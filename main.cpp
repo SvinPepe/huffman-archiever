@@ -2,13 +2,6 @@
 #include "Archiever.h"
 using namespace std;
 
-// int main() {
-//     Archiever archiever;
-//
-//     archiever.compress_file("input.txt", "output.txt");
-//     archiever.decompress_file("output.txt", "decompressed.txt");
-//     return 0;
-// }
 
 int32_t main(int argc, char *argv[]) {
     Archiever archiever;
@@ -20,4 +13,4 @@ int32_t main(int argc, char *argv[]) {
     return 0;
 }
 
-//https://sch9.ru/gate/benchmarker/results_v2/03d4bc8a-1f17-441a-9669-aa975987913c.txt
+

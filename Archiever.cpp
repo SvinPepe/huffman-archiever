@@ -123,7 +123,12 @@ void Archiever::init_freq(bool isCompressing) {
     }
 }
 
-void Archiever::build_tree() {
+
+void Archiever::init_tree() {
+    for (auto i: freq) {
+        forest.push(Tree{i, static_cast<short>(forest.size())});
+        tree.push_back({DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE});
+    }
     while (forest.size() > 1) {
         Tree main_min = forest.top();
         forest.pop();
@@ -134,14 +139,6 @@ void Archiever::build_tree() {
         tree[second_min.root].parent = tree.size() - 1;
         forest.push(Tree{main_min.weight + second_min.weight, static_cast<short>(tree.size() - 1)});
     }
-}
-
-void Archiever::init_tree() {
-    for (auto i: freq) {
-        forest.push(Tree{i, static_cast<short>(forest.size())});
-        tree.push_back({DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE});
-    }
-    build_tree();
 }
 
 void Archiever::dfs(int vertex, std::vector<unsigned char> &code_buffer) {

@@ -25,13 +25,12 @@ class Archiever {
 
     std::priority_queue<Tree, std::vector<Tree>, Tree> forest;
     std::vector<Vertex> tree;
-    std::vector<std::vector<unsigned char> > codes;
+    std::vector<std::vector<unsigned char>> codes;
     std::vector<unsigned char> input_chars;
     unsigned long long freq[256]{};
 
     void write_freq();
     void init_freq(bool isCompressing);
-    void build_tree();
     void init_tree();
     void dfs(int vertex, std::vector<unsigned char> &code_buffer);
     void init(bool isCompressing);
